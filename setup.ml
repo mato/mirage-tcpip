@@ -2185,8 +2185,6 @@ module OASISLibrary = struct
         begin
           ["lib"^cs.cs_name^"_stubs"^ext_lib]
           ::
-          ["dll"^cs.cs_name^"_stubs"^ext_dll]
-          ::
           acc_nopath
         end
       else
