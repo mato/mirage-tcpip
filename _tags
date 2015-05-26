@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: ff3f3aaffeb9a8ae52f69f7e1b8a25ee)
+# DO NOT EDIT (digest: e8fe55f623202fc801360d6e9fa0b525)
 # Ignore VCS directories, you can use the same kind of rule outside
 # OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
@@ -25,19 +25,20 @@ true: annot, bin_annot
 "lib/checksum_stubs.c": pkg_ipaddr
 "lib/checksum_stubs.c": pkg_mirage-profile
 "lib/checksum_stubs.c": pkg_mirage-types
-# Library tcpip_xen
-"lib/tcpip_xen.cmxs": use_tcpip_xen
-<lib/*.ml{,i,y}>: oasis_library_tcpip_xen_ccopt
-"lib/checksum_stubs_xen.c": oasis_library_tcpip_xen_ccopt
-<lib/tcpip_xen.{cma,cmxa}>: use_libtcpip_xen_stubs
-# Library ethif
-"lib/ethif.cmxs": use_ethif
 # Library ipv4
 "lib/ipv4.cmxs": use_ipv4
 # Library ipv6
 "lib/ipv6.cmxs": use_ipv6
 # Library udp
 "lib/udp.cmxs": use_udp
+<lib/*.ml{,i,y}>: pkg_bytes
+<lib/*.ml{,i,y}>: pkg_cstruct
+<lib/*.ml{,i,y}>: pkg_io-page
+<lib/*.ml{,i,y}>: pkg_ipaddr
+<lib/*.ml{,i,y}>: pkg_lwt
+<lib/*.ml{,i,y}>: pkg_mirage-profile
+<lib/*.ml{,i,y}>: pkg_mirage-types
+<lib/*.ml{,i,y}>: use_tcpip
 # Library tcp
 "tcp/tcp.cmxs": use_tcp
 "tcp/options.cmx": for-pack(Tcp)
@@ -79,65 +80,14 @@ true: annot, bin_annot
 <dhcp/*.ml{,i,y}>: pkg_mirage-types
 <dhcp/*.ml{,i,y}>: use_tcpip
 <dhcp/*.ml{,i,y}>: use_udp
-# Library tcpip-stack-direct
-"lib/tcpip-stack-direct.cmxs": use_tcpip-stack-direct
-<lib/*.ml{,i,y}>: pkg_bytes
-<lib/*.ml{,i,y}>: pkg_cstruct
-<lib/*.ml{,i,y}>: pkg_io-page
-<lib/*.ml{,i,y}>: pkg_ipaddr
-<lib/*.ml{,i,y}>: pkg_lwt
-<lib/*.ml{,i,y}>: pkg_mirage-profile
-<lib/*.ml{,i,y}>: pkg_mirage-types
-<lib/*.ml{,i,y}>: use_dhcpv4
-<lib/*.ml{,i,y}>: use_ethif
-<lib/*.ml{,i,y}>: use_ipv4
-<lib/*.ml{,i,y}>: use_ipv6
-<lib/*.ml{,i,y}>: use_tcp
-<lib/*.ml{,i,y}>: use_tcpip
-<lib/*.ml{,i,y}>: use_udp
-# Library ethif-unix
-"unix/ethif-unix.cmxs": use_ethif-unix
-# Library ipv4-unix
-"unix/ipv4-unix.cmxs": use_ipv4-unix
-# Library ipv6-unix
-"unix/ipv6-unix.cmxs": use_ipv6-unix
-# Library udpv4-unix
-"unix/udpv4-unix.cmxs": use_udpv4-unix
-# Library udpv6-unix
-"unix/udpv6-unix.cmxs": use_udpv6-unix
 # Library udpv4-socket
 "unix/udpv4-socket.cmxs": use_udpv4-socket
 # Library udpv6-socket
 "unix/udpv6-socket.cmxs": use_udpv6-socket
-# Library tcpv4-unix
-"unix/tcpv4-unix.cmxs": use_tcpv4-unix
-# Library tcpv6-unix
-"unix/tcpv6-unix.cmxs": use_tcpv6-unix
 # Library tcpv4-socket
 "unix/tcpv4-socket.cmxs": use_tcpv4-socket
 # Library tcpv6-socket
 "unix/tcpv6-socket.cmxs": use_tcpv6-socket
-# Library tcpip-stack-unix
-"unix/tcpip-stack-unix.cmxs": use_tcpip-stack-unix
-<unix/*.ml{,i,y}>: pkg_mirage-clock-unix
-<unix/*.ml{,i,y}>: pkg_mirage-console.unix
-<unix/*.ml{,i,y}>: pkg_mirage-net-unix
-<unix/*.ml{,i,y}>: pkg_mirage-types.lwt
-<unix/*.ml{,i,y}>: pkg_mirage-unix
-<unix/*.ml{,i,y}>: use_channel
-<unix/*.ml{,i,y}>: use_dhcpv4
-<unix/*.ml{,i,y}>: use_ethif
-<unix/*.ml{,i,y}>: use_ethif-unix
-<unix/*.ml{,i,y}>: use_ipv4
-<unix/*.ml{,i,y}>: use_ipv4-unix
-<unix/*.ml{,i,y}>: use_ipv6
-<unix/*.ml{,i,y}>: use_ipv6-unix
-<unix/*.ml{,i,y}>: use_tcp
-<unix/*.ml{,i,y}>: use_tcpip-stack-direct
-<unix/*.ml{,i,y}>: use_tcpv4-unix
-<unix/*.ml{,i,y}>: use_tcpv6-unix
-<unix/*.ml{,i,y}>: use_udpv4-unix
-<unix/*.ml{,i,y}>: use_udpv6-unix
 # Library tcpip-stack-socket
 "unix/tcpip-stack-socket.cmxs": use_tcpip-stack-socket
 <unix/*.ml{,i,y}>: pkg_bytes
@@ -174,8 +124,8 @@ true: annot, bin_annot
 "lib_test/test.byte": pkg_mirage-types
 "lib_test/test.byte": pkg_mirage-vnetif
 "lib_test/test.byte": pkg_oUnit
+"lib_test/test.byte": pkg_tcpip.ethif
 "lib_test/test.byte": use_channel
-"lib_test/test.byte": use_ethif
 "lib_test/test.byte": use_ipv4
 "lib_test/test.byte": use_ipv6
 "lib_test/test.byte": use_tcp
@@ -194,8 +144,8 @@ true: annot, bin_annot
 <lib_test/*.ml{,i,y}>: pkg_mirage-types
 <lib_test/*.ml{,i,y}>: pkg_mirage-vnetif
 <lib_test/*.ml{,i,y}>: pkg_oUnit
+<lib_test/*.ml{,i,y}>: pkg_tcpip.ethif
 <lib_test/*.ml{,i,y}>: use_channel
-<lib_test/*.ml{,i,y}>: use_ethif
 <lib_test/*.ml{,i,y}>: use_ipv4
 <lib_test/*.ml{,i,y}>: use_ipv6
 <lib_test/*.ml{,i,y}>: use_tcp

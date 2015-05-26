@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 4f73136167cbc6b589c94b765b108e48) *)
+(* DO NOT EDIT (digest: 84e07e8a12935926a59e88a438f12278) *)
 module OASISGettext = struct
 (* # 22 "src/oasis/OASISGettext.ml" *)
 
@@ -610,30 +610,19 @@ let package_default =
      MyOCamlbuildBase.lib_ocaml =
        [
           ("tcpip", ["lib"], []);
-          ("tcpip_xen", ["lib"], []);
-          ("ethif", ["lib"], []);
           ("ipv4", ["lib"], []);
           ("ipv6", ["lib"], []);
           ("udp", ["lib"], []);
           ("tcp", ["tcp"], []);
           ("channel", ["channel"], []);
           ("dhcpv4", ["dhcp"], []);
-          ("tcpip-stack-direct", ["lib"], []);
-          ("ethif-unix", ["unix"], []);
-          ("ipv4-unix", ["unix"], []);
-          ("ipv6-unix", ["unix"], []);
-          ("udpv4-unix", ["unix"], []);
-          ("udpv6-unix", ["unix"], []);
           ("udpv4-socket", ["unix"], []);
           ("udpv6-socket", ["unix"], []);
-          ("tcpv4-unix", ["unix"], []);
-          ("tcpv6-unix", ["unix"], []);
           ("tcpv4-socket", ["unix"], []);
           ("tcpv6-socket", ["unix"], []);
-          ("tcpip-stack-unix", ["unix"], []);
           ("tcpip-stack-socket", ["unix"], [])
        ];
-     lib_c = [("tcpip", "lib", []); ("tcpip_xen", "lib", [])];
+     lib_c = [("tcpip", "lib", [])];
      flags =
        [
           (["oasis_library_tcpip_ccopt"; "compile"],
@@ -642,11 +631,6 @@ let package_default =
                  S
                    [A "-ccopt"; A "-O2"; A "-ccopt"; A "-fno-stack-protector"
                    ])
-            ]);
-          (["oasis_library_tcpip_xen_ccopt"; "compile"],
-            [
-               (OASISExpr.EBool true,
-                 S [A "-ccopt"; A "-O2"; A "-ccopt"; A "${XEN_CFLAGS}"])
             ]);
           (["oasis_executable_test_byte"; "ocaml"; "link"; "byte"],
             [(OASISExpr.EBool true, S [A "-g"])]);
@@ -657,10 +641,9 @@ let package_default =
        ];
      includes =
        [
-          ("unix", ["channel"; "lib"; "tcp"]);
+          ("unix", ["lib"]);
           ("tcp", ["lib"]);
-          ("lib_test", ["channel"; "lib"; "tcp"]);
-          ("lib", ["dhcp"; "tcp"]);
+          ("lib_test", ["channel"; "tcp"]);
           ("dhcp", ["lib"])
        ]
   }
@@ -670,6 +653,6 @@ let conf = {MyOCamlbuildFindlib.no_automatic_syntax = false}
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default conf package_default;;
 
-# 674 "myocamlbuild.ml"
+# 657 "myocamlbuild.ml"
 (* OASIS_STOP *)
 Ocamlbuild_plugin.dispatch dispatch_default;;
